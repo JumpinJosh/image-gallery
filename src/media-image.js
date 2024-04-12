@@ -40,7 +40,7 @@ export class MediaImage extends DDD {
 
 globalThis.customElements.define(MediaImage.tag, MediaImage);
 
-export class PlayList extends LitElement {
+/*export class PlayList extends LitElement {
   static get tag() {
       return 'play-list';
     }
@@ -71,4 +71,4 @@ export class PlayList extends LitElement {
     }
 }
 
-globalThis.customElements.define(PlayList.tag, PlayList);
+globalThis.customElements.define(PlayList.tag, PlayList);*/

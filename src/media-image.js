@@ -15,7 +15,7 @@ export class MediaImage extends DDD {
         super.styles,
         css`
         .image-wrapper img {
-          border: solid var(--ddd-border-sm) var(--ddd-theme-default-limestoneGray);
+          border: solid var(--ddd-border-md) var(--ddd-theme-default-limestoneGray);
           border-radius: 8px;
           transition: all .3s ease-in;
         }
@@ -25,11 +25,9 @@ export class MediaImage extends DDD {
     
     render() {
       return html`
-        <dialog>
-          <div class="image-wrapper">
-            <img src="https://www.rd.com/wp-content/uploads/2019/09/GettyImages-621924830-scaled.jpg?w=2560" alt="funny dog in crab costume.png">
-          </div>
-        </dialog>
+        <div class="image-wrapper">
+          <img src="https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="funny-dog.png">
+        </div>
       `;
     }
     

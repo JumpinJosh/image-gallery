@@ -12,6 +12,7 @@ export class MediaImage extends DDD {
     constructor() {
       super();
       this.primary = "Green"
+      this.Image = "https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
       this.caption = "Image of funny dog."
       this.description = "This is an image of a dog making a funny face."
     }
@@ -23,6 +24,10 @@ export class MediaImage extends DDD {
 
         :host([primary="Green"]) {
           --background-color: var(--ddd-theme-default-opportunityGreen);
+        }
+
+        :host([primary="Red"]) {
+          --background-color: var(--ddd-theme-default-original87Pink);
         }
 
         .image-wrapper img {
@@ -56,7 +61,8 @@ export class MediaImage extends DDD {
       ];
     }
 
-    openDialog() {
+    // opens the dialog box for the gallery of images
+    /*openDialog() {
       const background = document.querySelector("transparent-background");
       const img = document.querySelector("transparent-background + img");
       const closeButton = document.querySelector("transparent-background close-button")
@@ -82,17 +88,16 @@ export class MediaImage extends DDD {
           background.close();
         });
       }
-    }
+    }*/
     
     render() {
       return html`
       <div class="background">
         <div class="image-wrapper">
-          <img src="https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="funny-dog.png" @click=${this.openDialog}>
+          <img src="${this.Image}" alt="funny-dog.png" @click=${this.openDialog}>
         </div>
         <div class="text-wrapper">
           <p class="Caption">${this.caption}</p>
-          <p class="Description">${this.description}</p>
         </div>
       </div>
 
@@ -100,7 +105,11 @@ export class MediaImage extends DDD {
         <button class="back-button"></button>
         <p class="num-indicater">1 of 10</p>
         <div class="image-wrapper">
-          <img src="https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="funny-dog.png">
+          <img src="${this.Image}" alt="funny-dog.png">
+        </div>
+        <div class="text-wrapper">
+          <p class="Caption">${this.caption}</p>
+          <p class="Description">${this.description}</p>
         </div>
         <button class="forward-button"></button>
         <button class="close-button"></button>
@@ -110,7 +119,10 @@ export class MediaImage extends DDD {
     
     static get properties() {
       return {
-          primary: { String }
+          primary: { String },
+          Image: { String },
+          caption: { String },
+          description: { String },
       };
     }
 }

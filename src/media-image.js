@@ -1,7 +1,5 @@
 import { html, css} from "lit";
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
-//import { PlayList } from "@lrnwebcomponents/play-list/play-list.js";
-
 
 
 export class MediaImage extends DDD {
@@ -72,7 +70,7 @@ export class MediaImage extends DDD {
         composed: true,
         cancelable: true,
         detail: {
-          opened: true,
+          opened: false,
         },
       });
 
@@ -80,11 +78,13 @@ export class MediaImage extends DDD {
       
       if (event.detail.opened == "false") {
         img.addEventListener("click", () => {
+          event.detail.opened = "true"
           background.showModal();
         });
       }
       else {
         closeButton.addEventListener("click", () => {
+          event.detail.opened = "false"
           background.close();
         });
       }
@@ -100,20 +100,6 @@ export class MediaImage extends DDD {
           <p class="Caption">${this.caption}</p>
         </div>
       </div>
-
-      <dialog class="transparent-background">
-        <button class="back-button"></button>
-        <p class="num-indicater">1 of 10</p>
-        <div class="image-wrapper">
-          <img src="${this.Image}" alt="funny-dog.png">
-        </div>
-        <div class="text-wrapper">
-          <p class="Caption">${this.caption}</p>
-          <p class="Description">${this.description}</p>
-        </div>
-        <button class="forward-button"></button>
-        <button class="close-button"></button>
-      </dialog>
       `;
     }
     

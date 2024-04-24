@@ -60,41 +60,26 @@ export class MediaImage extends DDD {
     }
 
     // opens the dialog box for the gallery of images
-    /*openDialog() {
-      const background = document.querySelector("transparent-background");
-      const img = document.querySelector("transparent-background + img");
-      const closeButton = document.querySelector("transparent-background close-button")
+    openDialog() {
+      console.log("Image clicked");
 
       const event = new CustomEvent("dialog-opened", {
         bubbles: true,
         composed: true,
         cancelable: true,
         detail: {
-          opened: false,
+          opened: true,
         },
       });
 
       this.dispatchEvent(event);
-      
-      if (event.detail.opened == "false") {
-        img.addEventListener("click", () => {
-          event.detail.opened = "true"
-          background.showModal();
-        });
-      }
-      else {
-        closeButton.addEventListener("click", () => {
-          event.detail.opened = "false"
-          background.close();
-        });
-      }
-    }*/
+    }
     
     render() {
       return html`
       <div class="background">
-        <div class="image-wrapper">
-          <img src="${this.Image}" alt="funny-dog.png" @click=${this.openDialog}>
+        <div class="image-wrapper" @click=${this.openDialog}>
+          <img src="${this.Image}">
         </div>
         <div class="text-wrapper">
           <p class="Caption">${this.caption}</p>

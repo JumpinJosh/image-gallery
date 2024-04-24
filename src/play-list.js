@@ -9,18 +9,41 @@ export class PlayList extends DDD {
 
     constructor() {
         super();
+        this.visible = false;
+        this.Image = "https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+        this.caption = "Image of funny dog."
+        this.description = "This is an image of a dog making a funny face."
     }
 
     static get styles() {
         return [
           super.styles,
-          css``
+          css`
+          :host {
+            display: none;
+          }
+
+          :host([visible]) {
+            display: flex;
+            z-index: 100000;
+          }
+          `
         ];
     }
 
+    closeButton() {
+        this.visible = false;
+    }
+
+    updateStatus() {
+        window.addEventListener('dialog-opened', (e) => {
+            this.visible = true;
+        });
+    }
+
     render() {
-        return html`
-        <dialog class="transparent-background">
+        return (!this.visible) ? `` : html`
+        <div class="transparent-background">
             <button class="back-button"></button>
             <p class="num-indicater">1 of 10</p>
             <div class="image-wrapper">
@@ -31,15 +54,18 @@ export class PlayList extends DDD {
                 <p class="Description">${this.description}</p>
             </div>
             <button class="forward-button"></button>
-            <button class="close-button"></button>
-        </dialog>
+            <button class="close-button" @click=${this.closeButton}></button>
+        </div>
         `
     }
 
     static get properties() {
         return {
-
+            visible: { type: Boolean, reflect: true},
+            Image: { type: String },
+            caption: { type: String },
+            description: { type: String },
         }
     }
 }
-globalThis.customElements.define(MediaImage.tag, MediaImage);
+globalThis.customElements.define(PlayList.tag, PlayList);

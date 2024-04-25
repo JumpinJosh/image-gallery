@@ -10,22 +10,49 @@ export class PlayList extends DDD {
     constructor() {
         super();
         this.visible = false;
-        this.Image = "https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+        this.currentImage;
+        this.mediaImages;
+        this.currentIndex;
         this.caption = "Image of funny dog."
         this.description = "This is an image of a dog making a funny face."
+        document.body.addEventListener("dialog-opened", (e) => this.updateStatus(e));
     }
 
     static get styles() {
         return [
           super.styles,
           css`
-          :host {
-            display: none;
+          .transparent-background {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(0,0,0,.5);
           }
 
-          :host([visible]) {
-            display: flex;
-            z-index: 100000;
+          .image-wrapper{
+            display: grid;
+            place-items: center;
+          }
+
+          .num-indicater {
+            text-align: center;
+            color: white;
+          }
+
+          .Description {
+            text-align: center;
+            color: white;
+          }
+
+          .close-button {
+            top: 100px;
+            right: 100px;
+          }
+          
+          media-image {
+            pointer-events: none;
           }
           `
         ];
@@ -35,26 +62,62 @@ export class PlayList extends DDD {
         this.visible = false;
     }
 
-    updateStatus() {
-        window.addEventListener('dialog-opened', (e) => {
+    updateStatus(e) {
+        if (this.visible == true) {
+            this.visible = false;
+        }
+        else {
+            this.getCurrentImage(e);
             this.visible = true;
+        }
+        this.requestUpdate();
+    }
+
+    getImages(e) {
+        this.mediaImages = document.querySelectorAll("media-image");
+        var index = 0
+        this.mediaImages.forEach(element => {
+            if (element == e.target) {
+                this.currentIndex = index;
+            }
+            index = index + 1;
         });
+    }
+
+    getCurrentImage(e) {
+        this.getImages(e);
+        this.currentImage = this.mediaImages[this.currentIndex].cloneNode(true);
+    }
+
+    leftClick() {
+        if (this.mediaImages[this.currentIndex - 1]) {
+            this.currentIndex = this.currentIndex - 1;
+            this.currentImage = this.mediaImages[this.currentIndex].cloneNode(true);
+            this.requestUpdate();
+        }
+    }
+
+    rightClick() {
+        if (this.mediaImages[this.currentIndex + 1]) {
+            this.currentIndex = this.currentIndex + 1;
+            this.currentImage = this.mediaImages[this.currentIndex].cloneNode(true);
+            this.requestUpdate();
+        }
     }
 
     render() {
         return (!this.visible) ? `` : html`
         <div class="transparent-background">
-            <button class="back-button"></button>
-            <p class="num-indicater">1 of 10</p>
+            <button class="back-button" @click=${this.leftClick}><</button>
+            <p class="num-indicater">${this.currentIndex + 1} of ${this.mediaImages.length}</p>
             <div class="image-wrapper">
-                <img src="${this.Image}" alt="funny-dog.png">
+                ${this.currentImage}
             </div>
             <div class="text-wrapper">
-                <p class="Caption">${this.caption}</p>
                 <p class="Description">${this.description}</p>
             </div>
-            <button class="forward-button"></button>
-            <button class="close-button" @click=${this.closeButton}></button>
+            <button class="forward-button" @click=${this.rightClick}>></button>
+            <button class="close-button" @click=${this.closeButton}>X</button>
         </div>
         `
     }
@@ -69,3 +132,14 @@ export class PlayList extends DDD {
     }
 }
 globalThis.customElements.define(PlayList.tag, PlayList);
+
+globalThis.PlayList = globalThis.PlayList || {};
+globalThis.PlayList.requestAvailability = () => {
+  if (!window.PlayList.instance) {
+    globalThis.PlayList.instance = document.createElement("play-list");
+    document.body.appendChild(globalThis.PlayList.instance);
+  }
+  return globalThis.PlayList.instance;
+};
+
+export const PlayListStore = globalThis.PlayList.requestAvailability();

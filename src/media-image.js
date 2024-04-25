@@ -12,7 +12,6 @@ export class MediaImage extends DDD {
       this.primary = "Green"
       this.Image = "https://th.bing.com/th/id/OIP.PDlm3trgAkY6pGPcbRt4SQHaEK?w=289&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
       this.caption = "Image of funny dog."
-      this.description = "This is an image of a dog making a funny face."
     }
     
     static get styles() {
@@ -52,8 +51,8 @@ export class MediaImage extends DDD {
           background-color: var(--background-color);
         }
 
-        .description {
-          display: none;
+        .Caption {
+          color: white;
         }
         `
       ];
@@ -93,7 +92,6 @@ export class MediaImage extends DDD {
           primary: { String },
           Image: { String },
           caption: { String },
-          description: { String },
       };
     }
 }

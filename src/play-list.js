@@ -36,19 +36,33 @@ export class PlayList extends DDD {
             place-items: center;
           }
 
+          .back-button {
+            position: relative;
+            right: 350px;
+            top: 200px;
+          }
+
+          .forward-button {
+            position: relative;
+            left: 360px;
+            bottom: 180px;
+          }
+
           .num-indicater {
             text-align: center;
             color: white;
           }
 
           .Description {
+            font-family: Georgia, 'Times New Roman', Times, serif;
             text-align: center;
             color: white;
           }
 
           .close-button {
-            top: 100px;
-            right: 100px;
+            position: relative;
+            bottom: 500px;
+            left: 1100px;
           }
           
           media-image {
@@ -108,15 +122,15 @@ export class PlayList extends DDD {
     render() {
         return (!this.visible) ? `` : html`
         <div class="transparent-background">
-            <button class="back-button" @click=${this.leftClick}><</button>
             <p class="num-indicater">${this.currentIndex + 1} of ${this.mediaImages.length}</p>
             <div class="image-wrapper">
+                <button class="back-button" @click=${this.leftClick}><</button>
                 ${this.currentImage}
+                <button class="forward-button" @click=${this.rightClick}>></button>
             </div>
             <div class="text-wrapper">
                 <p class="Description">${this.description}</p>
             </div>
-            <button class="forward-button" @click=${this.rightClick}>></button>
             <button class="close-button" @click=${this.closeButton}>X</button>
         </div>
         `

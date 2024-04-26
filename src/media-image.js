@@ -27,6 +27,22 @@ export class MediaImage extends DDD {
           --background-color: var(--ddd-theme-default-original87Pink);
         }
 
+        :host([primary="Blue"]) {
+          --background-color: var(--ddd-theme-default-beaverBlue);
+        }
+
+        :host([primary="Yellow"]) {
+          --background-color: var(--ddd-theme-default-keystoneYellow);
+        }
+
+        :host([primary="Orange"]) {
+          --background-color: var(--ddd-theme-default-inventOrange);
+        }
+
+        :host([primary="Purple"]) {
+          --background-color: var(--ddd-theme-default-wonderPurple);
+        }
+
         .image-wrapper img {
           border: solid var(--ddd-border-md) var(--ddd-theme-default-limestoneGray);
           border-radius: 8px;
@@ -52,6 +68,7 @@ export class MediaImage extends DDD {
         }
 
         .Caption {
+          font-family: 'Times New Roman', Times, serif;
           color: white;
         }
         `
